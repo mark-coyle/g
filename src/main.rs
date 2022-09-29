@@ -35,10 +35,11 @@ fn build_table_from_repos() -> Vec<Repo> {
 
     for path in paths {
         let path_name = path.unwrap().path();
+        let path_name_str = path_name.to_str().unwrap();
         let repo_name = path_name.to_str().unwrap().split("/").last().unwrap();
-        let branch = current_branch_for_repo(path_name.to_str().unwrap());
+        let branch = current_branch_for_repo(path_name_str);
         let branch_name = String::from_utf8(branch.stdout).unwrap();
-        let diff = String::from_utf8(diff_for_repo_branch(repo_name).stdout).unwrap();
+        let diff = String::from_utf8(diff_for_repo_branch(path_name_str).stdout).unwrap();
         let diff_empty = diff.is_empty();
 
         let repo = Repo {
