@@ -42,6 +42,8 @@ fn build_table_from_repos() -> Vec<Repo> {
         let diff = String::from_utf8(diff_for_repo_branch(path_name_str).stdout).unwrap();
         let diff_empty = diff.is_empty();
 
+        if branch_name.is_empty() { continue }
+
         let repo = Repo {
             repo: repo_name.to_string(),
             branch_name,
